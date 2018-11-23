@@ -1,0 +1,15 @@
+README.md
+setup.py
+FieldTracing/_WithinBounds.py
+FieldTracing/__init__.py
+FieldTracing.egg-info/PKG-INFO
+FieldTracing.egg-info/SOURCES.txt
+FieldTracing.egg-info/dependency_links.txt
+FieldTracing.egg-info/requires.txt
+FieldTracing.egg-info/top_level.txt
+FieldTracing/Euler/EulerStep.py
+FieldTracing/Euler/EulerTrace.py
+FieldTracing/Euler/__init__.py
+FieldTracing/RK4/RK4Step.py
+FieldTracing/RK4/RK4Trace.py
+FieldTracing/RK4/__init__.py
