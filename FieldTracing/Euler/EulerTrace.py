@@ -67,34 +67,50 @@ def EulerTrace(x0,dt,f,n=1000,bounds=None,direction='both',Verbose=True):
 		vm = np.linalg.norm(v)
 		return v/vm
 
-	x1 = np.zeros((n,np.size(x0)),dtype='float32')
 
 	xd = np.size(x0)
+	x1 = np.zeros((n,xd),dtype='float32')+np.float32(np.nan)
 
 	WB = _GetBoundsFunction(bounds,xd)
 
 			
 	if direction == 'both':
 		xtmp = np.copy(x0)
-		mid = n/2
+		mid = n//2
 		x1[mid] = xtmp
-		for i in range(mid+1,n):
+		step = 0
+		for i in range(mid,n):
+			if Verbose:
+				print("\rTracing Step {0} (Max = {1})".format(step+1,n),end='')
 			xtmp = EulerStep(xtmp,dt,fv,1.0)
-			x1[i] = xtmp		
+			x1[i] = xtmp	
+			step += 1		
 			if not WB(xtmp):
 				break
 
-		for i in range(mid-1,0,-1):
+		xtmp = np.copy(x0)
+		for i in range(mid-1,-1,-1):
+			if Verbose:
+				print("\rTracing Step {0} (Max = {1})".format(step+1,n),end='')
 			xtmp = EulerStep(xtmp,dt,fv,-1.0)
 			x1[i] = xtmp	
+			step += 1	
 			if not WB(xtmp):
 				break
+		if Verbose:
+			print('\nTotal Steps: {0}'.format(step))
 	else:
 		xtmp = np.copy(x0)
 		x1[0] = xtmp
+		step = 0
 		for i in range(1,n):
+			if Verbose:
+				print("\rTracing Step {0} (Max = {1})".format(step+1,n),end='')
 			xtmp = EulerStep(xtmp,dt,fv,direction)
 			x1[i] = xtmp
+			step += 1
 			if not WB(xtmp):
-				break		
+				break	
+		if Verbose:
+			print('\nTotal Steps: {0}'.format(step))	
 	return x1

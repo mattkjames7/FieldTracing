@@ -86,7 +86,7 @@ def RK4Trace(x0,dt,f,n=1000,bounds=None,direction='both',Verbose=True):
 			step += 1	
 			if not WB(xtmp):
 				break
-				
+		
 		xtmp = np.copy(x0)
 		for i in range(mid-1,-1,-1):
 			if Verbose:
@@ -107,6 +107,7 @@ def RK4Trace(x0,dt,f,n=1000,bounds=None,direction='both',Verbose=True):
 				print("\rTracing Step {0} (Max = {1})".format(step+1,n),end='')
 			xtmp = RK4Step(xtmp,dt,fv,direction)
 			x1[i] = xtmp
+			step += 1
 			if not WB(xtmp):
 				break
 		if Verbose:
